@@ -1,0 +1,42 @@
+<div class="modal-header {{headerClass}}">
+    <h1 class="modal-title">
+        <i class='fa fa-exclamation-triangle'></i>
+        {{titulo}}
+    </h1>
+</div>
+<div class="modal-body">
+	<div ng-bind-html="mensagem"></div>
+</div>
+
+<div class="modal-footer">
+    <button 
+    	type="button" 
+    	class="btn btn-primary" 
+    	ng-click="close()"
+    	ng-show="btnCancelar"
+    	>
+        <i class='fa fa-times'></i>&nbsp;
+        <span>Fechar</span>
+    </button>
+    
+    <button 
+    	type='button' 
+    	class='btn btn-primary' 
+    	data-dismiss="modal" 
+    	ng-click="sim()"
+    	ng-show="btnConfirm"
+    	>
+        <i class='fa fa-check'></i>&nbsp;Sim
+    </button>
+    
+    <button 
+    	type='button' 
+    	class='btn btn-danger' 
+    	data-dismiss="modal" 
+    	ng-click="nao()"
+    	ng-show="btnConfirm"
+    	>
+        <i class='fa fa-times'></i>&nbsp;Não
+    </button>
+    
+</div>

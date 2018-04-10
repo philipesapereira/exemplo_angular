@@ -1,0 +1,7 @@
+#Wed Dec 06 11:25:21 BRST 2017
+analyseLocally=false
+eclipse.preferences.version=1
+extraProperties=
+projectKey=br.gov.caixa\:exemplo
+serverUrl=http\://localhost\:9000/sonar
+version=2

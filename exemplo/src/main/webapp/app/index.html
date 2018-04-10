@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <title>Dashboard Template for Bootstrap</title>
+
+    <link href="./css/bootstrap-4.0.0.min.css" rel="stylesheet">
+    <link href="./css/exemplo.css" rel="stylesheet">
+
+	<script src="./lib/angular-1.6.6.min.js"></script>
+	<script src="./lib/ui-router-1.0.11.min.js"></script>
+	<script src="./lib/jquery-3.2.1.min.js"></script>
+	<script src="./lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="./lib/html5shiv-3.7.3.min.js"></script>
+      <script src="./lib/respond-1.4.2.min.js"></script>
+    <![endif]-->
+    
+  </head>
+
+  <body>
+	<!-- 
+	<script src="./lib/bootstrap-4.0.0.min.js"></script>
+	 -->
+	<script src="./js/config/prototype.js"></script>
+	<script src="./js/config/constantes.js"></script>
+	<script src="./js/config/app.js"></script>
+	<script src="./js/factory/http.js"></script>
+	<script src="./js/factory/processing.js"></script>
+	<script src="./js/factory/modal.js"></script>
+	<script src="./js/service/seguranca.js"></script>
+	<script src="./js/service/mensagem.js"></script>
+	
+	<div ui-view></div>
+    
+	<script src="./commonpage/acessonegado/acessoNegadoController.js"></script>
+	<script src="./commonpage/home/homeController.js"></script>
+	
+    <script src="./module/exemplo/config.js"></script>
+    <script src="./module/exemplo/teste/exemploTesteConsultaCtrl.js"></script>
+    <script src="./module/exemplo/teste/exemploTesteDetalheCtrl.js"></script>
+    <script src="./module/exemplo/teste/exemploTesteService.js"></script>
+    
+  </body>
+</html>

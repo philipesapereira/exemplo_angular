@@ -1,0 +1,119 @@
+<h1 class="titulo">Titulo da Funcionalidade</h1>
+
+<form name="form" novalidate class="pt-3 pb-5" ng-submit="vm.listarTestes()">
+  
+  <div class="form-group col-md-6 px-0 row" >
+    <label for="nome" class="col-md-2 px-0">Nome</label>
+    <div class="col-md-10 px-0">
+	    <input 
+	    	ng-model="vm.paginacaoContainer.filtro.nome"
+	    	type="text" 
+	    	id="nome" 
+	    	name="nome"
+	    	class="form-control form-control-sm ng-class:{'is-invalid': form.nome.$invalid};" 
+	    	ng-focus="form.nome.$invalid=false" 
+	    	>
+    </div>
+  	<div class="invalid-feedback"></div>
+  </div>
+  
+  <div class="form-group col-md-6 px-0" >
+    <label for="sobrenome">Sobrenome</label>
+    <input 
+		ng-model="vm.paginacaoContainer.filtro.sobreNome"	
+    	type="text" 
+    	id="sobrenome"
+    	name="sobrenome" 
+    	class="form-control form-control-sm ng-class:{'is-invalid': form.sobrenome.$invalid};" 
+    	ng-focus="form.sobrenome.$invalid=false" 
+    	>
+  	<div class="invalid-feedback"></div>
+  </div>
+  
+  <button 
+  	ng-if="vm.recursos.hasIndex('MANTEM')"
+  	class="btn btn-primary btn-sm" 
+  	type="submit"
+  	>Pesquisar</button>
+  	
+</form>
+
+<div class="card">
+	<div class="card-header" ng-if="!vm.paginacaoContainer.lista.isEmpty()">
+		<select 
+			class="form-control  float-right col-md-1 col-3"
+			ng-model="vm.paginacaoContainer.itensPorPagina"
+			ng-change="vm.listarTestes(1)"
+			>
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="20">20</option>
+		</select>
+	</div>
+	<div class="card-body p-0">
+		<table class="table table-sm table-bordered table-hover m-0">
+		  <thead>
+		    <tr>
+		      <th scope="col">Id</th>
+		      <th scope="col">Nome</th>
+		      <th scope="col">Sobrenome</th>
+		      <th scope="col">Username</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<tr ng-if="vm.paginacaoContainer.lista.isEmpty()"><td colspan="10" class="text-center py-3">Nenhum dado localizado.</td></tr>
+		    <tr ng-class="{'selected': item == vm.selectedItem}" ng-repeat="item in vm.paginacaoContainer.lista" ng-click="vm.selectItem(item)">
+		      <td>{{item.id}}</td>
+		      <td>{{item.nome}}</td>
+		      <td>{{item.sobreNome}}</td>
+		      <td>{{item.userName}}</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+	<nav class="card-footer text-center px-0 py-0" ng-if="!vm.paginacaoContainer.lista.isEmpty()">
+		<ul uib-pagination 
+			ng-change="vm.listarTestes()"
+			total-items="vm.paginacaoContainer.totalItens" 
+			ng-model="vm.paginacaoContainer.numeroPagina" 
+			items-per-page="vm.paginacaoContainer.itensPorPagina"
+			max-size="5" 
+			class="pagination-sm my-2 mx-0" 
+			boundary-links="true"
+			previous-text="&lsaquo;" 
+			next-text="&rsaquo;" 
+			first-text="&laquo;" 
+			last-text="&raquo;"
+			>
+		</ul>
+  	</nav>
+</div>
+
+<div class="btn-area">
+	<button 
+	  	class="btn btn-primary btn-sm" 
+	  	type="button"
+	  	>Inlcuir</button>
+	 
+	<button 
+		ng-if="!vm.testes.isEmpty()"
+		ng-disabled="vm.selectedItem == null"
+	 	class="btn btn-primary btn-sm" 
+	 	type="button"
+	 	>Alterar</button>
+	  	
+	<button
+		ng-if="!vm.testes.isEmpty()"
+		ng-disabled="vm.selectedItem == null" 
+		class="btn btn-primary btn-sm" 
+		type="button"
+		>Detalhar</button>
+	  	
+	<button 
+		ng-if="!vm.testes.isEmpty()"
+		ng-disabled="vm.selectedItem == null"
+		class="btn btn-primary btn-sm" 
+		type="button"
+		>Excluir</button>
+	  	
+</div>

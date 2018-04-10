@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br" >
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <title>Sisgr</title>
+	<style type="text/css">
+		*{
+			margin: 0 auto;
+			box-sizing: border-box;	
+			font-family: arial;
+		}
+		header {
+			height: 100px;
+			padding: 5px 20px;
+			background-color: #0039ba;
+			color: #fff;
+		}
+		nav, iframe {display: inline-block;border: none;vertical-align: top;}
+		nav {width: 256px; border-right:solid #000 1px;background-color: #ccc;min-height: 500px;}
+		ul {list-style: none;}
+		a {text-decoration: none;color:#000;}
+		nav ul {padding-left: 10px;}
+	</style>
+    
+    <script type="text/javascript">
+		function load(){
+			ajustaFrame();
+			//bindGo();
+			document.getElementById("url_sgr").value = sessionStorage.getItem('URL') || '';
+		}
+
+		function bindGo(){
+			var list = document.getElementsByTagName('a');
+
+			for(var i = 0; i < list.length; i++){
+				list[i].addEventListener('click', function(elm) {
+			 		go(elm.originalTarget.attributes['url'].value,elm.originalTarget.attributes['processo'].value);
+				});
+			}
+		}
+		
+		function ajustaFrame(){
+			var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+			var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+			var frame = document.getElementById('frame');
+			frame.width = (w - 278) + 'px';
+			frame.height = (h - 125) + 'px';
+		}
+
+		function go(url, processo){
+			
+			var sgrURL = document.getElementById("url_sgr").value;
+			var urlParam = '';
+			
+			if(sgrURL !== '' && sgrURL !== undefined){
+				
+				if(sgrURL.indexOf("?") !== -1){
+					sgrURL = sgrURL.split("?")[1]
+				}	
+				
+				var keyPair = sgrURL.split("&");
+				urlParam = '?';
+				
+				keyPair.forEach(function(keyPair){
+					keyPair = keyPair.split("=");
+					if(keyPair[0] == 'SGR_PROCESSO'){
+						keyPair[1] = processo;
+					}
+
+					if(keyPair[0] == 'SGR_EXECUTAVEL'){
+						keyPair[1] = url;
+					}
+					
+					if(urlParam != '?'){
+						urlParam += '&';
+					}
+					urlParam += keyPair[0] + '=' + keyPair[1] || '';
+				});
+				
+			}
+			var link = 'http://localhost:8888/exemplo/'+url;
+			document.getElementById('frame').src = link + urlParam;
+		}
+
+		function getParams(){
+			var sgrURL = document.getElementById("url_sgr").value;
+			var params = [];
+			
+			if(sgrURL !== '' && sgrURL !== undefined){
+				
+				if(sgrURL.indexOf("?") !== -1){
+					sgrURL = sgrURL.split("?")[1]
+				}	
+				
+				var keyPair = sgrURL.split("&");
+				
+				keyPair.forEach(function(keyPair){
+					
+					keyPair = keyPair.split("=");
+					params[decodeURIComponent(keyPair[0])] = decodeURIComponent(keyPair[1]) || '';
+				});
+			}
+
+			return params;
+		}	
+
+		function persistUrl(url){
+			sessionStorage.setItem('url_sgr',url);
+		}		
+    </script>
+    
+  </head>
+
+  <body onload="load();">
+	
+	<header>
+		<h1 class="logo">SISGR</h1>
+		<input type="text" id="url_sgr" style="width:100%" onblur="persistUrl(this.value);"/>
+	</header>
+	
+	<nav>
+		<ul>
+			<li><a href="#" onclick="go('app', '');" >Index</a></li>
+			<li>Exemplo
+				<ul>
+					<li><a href="#" onclick="go('app/#!/exemplo/teste', '001001');">Teste</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+    
+    <iframe id="frame"></iframe>
+  </body>
+</html>
